@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
+      - AUTH_SECRET=${AUTH_SECRET}
+      - AUTH_URL=${AUTH_URL}
+      - NEXT_PUBLIC_CREATE_BASE_URL=${NEXT_PUBLIC_CREATE_BASE_URL}
+      - NEXT_PUBLIC_CREATE_HOST=${NEXT_PUBLIC_CREATE_HOST}
+      - NEXT_PUBLIC_PROJECT_GROUP_ID=${NEXT_PUBLIC_PROJECT_GROUP_ID}
+      - CORS_ORIGINS=${CORS_ORIGINS}
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
